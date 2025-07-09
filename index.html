@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacotes de Serviços da Agência</title>
+    <meta name="description" content="Mapa visual dos pacotes de serviços da agência de marketing digital">
+    <meta name="keywords" content="agência, marketing digital, pacotes, serviços, tráfego, ads">
+    <meta name="author" content="Agência de Marketing Digital">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-tree {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .main-branch {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            border: 3px solid #667eea;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-branch::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .main-branch:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .branch-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .branch-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .packages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .package {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .package:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .package-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .package-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .package-services {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .package-services li {
+            padding: 5px 0;
+            color: #555;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .package-services li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .package-note {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .price-variants {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .price-variant {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            min-width: 200px;
+            transition: all 0.3s ease;
+        }
+
+        .price-variant:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .variant-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .variant-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .setup-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .setup-option {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .setup-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .setup-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .setup-description {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .packages {
+                grid-template-columns: 1fr;
+            }
+            
+            .price-variants {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pacotes de Serviços da Agência</h1>
+        
+        <div class="service-tree">
+            <!-- Pacotes Mensais -->
+            <div class="main-branch">
+                <div class="branch-title">
+                    <span class="icon">📦</span>
+                    1. Pacotes Mensais
+                </div>
+                <div class="packages">
+                    <div class="package">
+                        <div class="package-name">
+                            <span class="icon">🥉</span>
+                            Pacote Básico
+                        </div>
+                        <div class="package-price">R$ 800,00</div>
+                        <ul class="package-services">
+                            <li>Gestor de Tráfego ADS</li>
+                        </ul>
+                        <div class="package-note">
+                            <strong>Observação:</strong> Apenas gestão de anúncios.
+                        </div>
+                    </div>
+                    
+                    <div class="package">
+                        <div class="package-name">
+                            <span class="icon">🥈</span>
+                            Pacote Prata
+                        </div>
+                        <div class="package-price">R$ 1.890,00</div>
+                        <ul class="package-services">
+                            <li>Gestor de Tráfego</li>
+                            <li>Produção e manutenção de anúncios</li>
+                        </ul>
+                        <div class="package-note">
+                            <strong>Observação:</strong> Cliente envia imagens e vídeos.
+                        </div>
+                    </div>
+                    
+                    <div class="package">
+                        <div class="package-name">
+                            <span class="icon">🥇</span>
+                            Pacote Gold
+                        </div>
+                        <div class="package-price">R$ 2.390,00</div>
+                        <ul class="package-services">
+                            <li>Gestor de Tráfego</li>
+                            <li>Produção e manutenção de anúncios</li>
+                            <li>Criativo (com limitações)</li>
+                        </ul>
+                        <div class="package-note">
+                            <strong>Observação:</strong> Vídeos por conta do cliente.
+                        </div>
+                    </div>
+                    
+                    <div class="package">
+                        <div class="package-name">
+                            <span class="icon">💎</span>
+                            Pacote Platinum
+                        </div>
+                        <div class="package-price">R$ 2.990,90</div>
+                        <ul class="package-services">
+                            <li>Gestor de Tráfego</li>
+                            <li>Produção e manutenção de anúncios</li>
+                            <li>Criativo (com limitações)</li>
+                            <li>Áudio Visual (somente clientes locais)</li>
+                        </ul>
+                        <div class="package-note">
+                            <strong>Observação:</strong> Criativos e vídeos incluídos com limite.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Implementações e-commerce -->
+            <div class="main-branch">
+                <div class="branch-title">
+                    <span class="icon">🛒</span>
+                    2. Implementações e-commerce
+                </div>
+                <div class="price-variants">
+                    <div class="price-variant">
+                        <div class="variant-title">
+                            <span class="icon">🏪</span>
+                            1 Loja
+                        </div>
+                        <div class="variant-price">R$ 1.300,00</div>
+                        <div style="color: #666; font-size: 0.9rem;">(Plano Anual)</div>
+                        <div style="margin-top: 10px;">
+                            <div class="variant-price" style="font-size: 1rem; color: #999;">R$ 1.600,00</div>
+                            <div style="color: #666; font-size: 0.9rem;">(Plano Semestral)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="price-variant">
+                        <div class="variant-title">
+                            <span class="icon">🏬</span>
+                            2 Lojas
+                        </div>
+                        <div class="variant-price">R$ 2.200,00</div>
+                        <div style="color: #666; font-size: 0.9rem;">(Plano Anual)</div>
+                        <div style="margin-top: 10px;">
+                            <div class="variant-price" style="font-size: 1rem; color: #999;">R$ 2.800,00</div>
+                            <div style="color: #666; font-size: 0.9rem;">(Plano Semestral)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Instalação / Setup Inicial -->
+            <div class="main-branch">
+                <div class="branch-title">
+                    <span class="icon">⚙️</span>
+                    3. Instalação / Setup Inicial
+                </div>
+                <div class="setup-description" style="text-align: center; margin-bottom: 20px; color: #666;">
+                    Produção de anúncio + cadastro completo no Upseller (100 SKUs)
+                </div>
+                <div class="setup-options">
+                    <div class="setup-option">
+                        <div class="variant-title">
+                            <span class="icon">📋</span>
+                            Sem Criativo
+                        </div>
+                        <div class="setup-price">R$ 4.890,00</div>
+                        <div class="package-note">
+                            <strong>Observação:</strong> Criativos por conta do contratante
+                        </div>
+                    </div>
+                    
+                    <div class="setup-option">
+                        <div class="variant-title">
+                            <span class="icon">🎨</span>
+                            Com Criativo
+                        </div>
+                        <div class="setup-price">R$ 6.490,00</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
